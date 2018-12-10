@@ -1,0 +1,28 @@
+﻿@model IEnumerable<WebApplication7.ViewModels.ClienteViewModel>
+@using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"><input type="checkbox" id="chkGroup" onclick="Alter();" /></th>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Data Inclusão</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            @Html.ValidationSummary(true)
+            @foreach (var item in Model)
+            {
+                <tr id="tsttr">
+                    <td><input type="checkbox" /></td>
+                    <td>@item.Id</td>
+                    <td>@item.Nome</td>
+                    <td>@item.DataHora</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-default" onclick="Update2();">Atualizar2</button>
+    <button type="submit" class="btn btn-primary">Atualizar</button>
+}

@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<br />
+<div class="container">
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="col-lg-4">
+                <input type="file" name="uploadFile" onchange="uploadOnLoad();" />
+            </div>
+            <div class="col-lg-4" id="dvSelect" hidden>
+                <select onchange="onSelectItem();">
+                    <option>Selecione</option>
+                    <option>Selecione</option>
+                    <option>Selecione</option>
+                </select>
+            </div>
+            <div class="col-lg-4" id="dvEnviar" hidden>
+                <button type="submit" class="btn btn-success">Enviar</button>
+            </div>
+        </div>
+    }
+</div>

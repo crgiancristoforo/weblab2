@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script>
+        $(document).ready(function () {
+
+            //$('tr#tsttr').each(function () {
+            //    var _status1 = $(this).find('td').eq(0).data('val');
+            //    var Id = $(this).find('td').eq(1).text();
+            //    var Nome = $(this).find('td').eq(2).text();
+            //    var DataHora = $(this).find('td').eq(3).text()
+            //    console.log(_status1 + " :: " + Nome + " :: " + DataHora);
+            //});
+
+            $("tr").each(function (index) {
+                var _status1 = $("#chkGroup:checked").length;
+                var Nome = $(this).find('td').eq(2).text();
+                //var _status = this;
+                if (Nome == "Carlos Roberto") {
+                    $(this).find('input').eq(0).attr("disabled", true);
+                }
+                if (_status1 === 0) {
+                    
+                };
+            });
+        });
+
+        function Update2() {
+            $('tr#tsttr').each(function () {
+                var _chk = $(this).find('input:checked').eq(0).length;
+                if (_chk === 1) {
+                    var Nome = $(this).find('td').eq(2).text();
+                    var _Id = $(this).find('td').eq(1).text();
+                    var DataHora = $(this).find('td').eq(3).text()
+                    //console.log(_chk + " :: " + _Id + " :: " + Nome + " :: " + DataHora);
+                    var data = {
+                        "Nome": Nome,
+                        "DataHora": DataHora
+                    };
+                    $.ajax({
+                        url: '@Url.Action("Contact","Home")',
+                        type: "POST",
+                        data: data
+                    });
+                }
+            });
+        };
+
+        function uploadOnLoad() {
+            $("#dvSelect").removeAttr('hidden');
+        };
+        function onSelectItem() {
+            $("#dvEnviar").removeAttr('hidden');
+        };
+
+        function Alter() {
+            var _status = $("#chkGroup:checked").length;
+            var Nome = $(this).find('td').eq(2).text();
+            console.log(Nome);
+            if (_status === 0) {
+                $("input").attr('checked', false);
+            } else {
+                $("input").attr('checked', true);
+            }
+            $("input").each(function (index) {
+                if ($(this).prop('disabled')) {
+                    $(this).attr('checked', false);
+                }
+            });
+        };
+    </script>
+</body>
+</html>
