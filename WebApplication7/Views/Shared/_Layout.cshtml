@@ -33,6 +33,28 @@
         @RenderBody()
     </div>
 
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="messageBox"></div>
+                </div>
+                <div id="btnId" class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
@@ -40,13 +62,9 @@
     <script>
         $(document).ready(function () {
 
-            //$('tr#tsttr').each(function () {
-            //    var _status1 = $(this).find('td').eq(0).data('val');
-            //    var Id = $(this).find('td').eq(1).text();
-            //    var Nome = $(this).find('td').eq(2).text();
-            //    var DataHora = $(this).find('td').eq(3).text()
-            //    console.log(_status1 + " :: " + Nome + " :: " + DataHora);
-            //});
+            $("#btnId").click(function () {
+                window.location.href = "http://localhost:56232/Home/Contact";
+            });
 
             $("tr").each(function (index) {
                 var _status1 = $("#chkGroup:checked").length;
@@ -77,15 +95,20 @@
                         type: "POST",
                         data: data,
                         error: function (response) {
-                            alert(response.responseText);
+                            //alert(response.responseText);
+                            $("#exampleModal").modal();
+                            $("#messageBox").html(response.responseText);
                         },
                         success: function (response) {
-                            alert(response.responseText);
-                        }
+                            $("#exampleModal").modal();
+                            $("#messageBox").html(response.responseText);
+                            $("#btnId").html("<button type='submit' class='btn btn-secondary' data-dismiss='modal'>Fechar</button>")
+                        },
                     });
                 }
             });
         };
+
 
         function uploadOnLoad() {
             $("#dvSelect").removeAttr('hidden');
@@ -108,10 +131,6 @@
                     $(this).attr('checked', false);
                 }
             });
-        };
-
-        function startSuccess() {
-            alert("Sucesso!");
         };
     </script>
 </body>
