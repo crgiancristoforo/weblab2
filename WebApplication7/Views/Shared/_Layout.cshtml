@@ -56,7 +56,7 @@
                     $(this).find('input').eq(0).attr("disabled", true);
                 }
                 if (_status1 === 0) {
-                    
+
                 };
             });
         });
@@ -68,7 +68,6 @@
                     var Nome = $(this).find('td').eq(2).text();
                     var _Id = $(this).find('td').eq(1).text();
                     var DataHora = $(this).find('td').eq(3).text()
-                    //console.log(_chk + " :: " + _Id + " :: " + Nome + " :: " + DataHora);
                     var data = {
                         "Nome": Nome,
                         "DataHora": DataHora
@@ -76,7 +75,13 @@
                     $.ajax({
                         url: '@Url.Action("Contact","Home")',
                         type: "POST",
-                        data: data
+                        data: data,
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        success: function (response) {
+                            alert(response.responseText);
+                        }
                     });
                 }
             });
@@ -103,6 +108,10 @@
                     $(this).attr('checked', false);
                 }
             });
+        };
+
+        function startSuccess() {
+            alert("Sucesso!");
         };
     </script>
 </body>

@@ -57,12 +57,20 @@ namespace WebApplication7.Controllers
         [HttpPost]
         public ActionResult Contact(ClienteViewModel model)
         {
-            TB_Cliente _cliente = new TB_Cliente();
-            _cliente.DS_Nome = model.Nome;
-            _cliente.DT_Inclusao = DateTime.Now;
-            _db.TB_Cliente.Add(_cliente);
-            _db.SaveChanges();
-            return View();
+            try
+            {
+                TB_Cliente _cliente = new TB_Cliente();
+                _cliente.DS_Nome = model.Nome;
+                _cliente.DT_Inclusao = DateTime.Now;
+                _db.TB_Cliente.Add(_cliente);
+                _db.SaveChanges();
+                return Json(new { success = true, responseText = "Salvo com sucesso !" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, responseText = "Erro !" }, JsonRequestBehavior.AllowGet);
+            }
+            
         }
     }
 }
